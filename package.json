@@ -1,0 +1,48 @@
+{
+  "name": "electron-react-vite-app",
+  "description": "Simple template user interface with electron and react",
+  "version": "0.1.0",
+  "private": true,
+  "author": {
+    "email": "miguel.dasilva2004@hotmail.com",
+    "name": "Multyp"
+  },
+  "main": "packages/main/dist/index.cjs",
+  "type": "module",
+  "scripts": {
+    "build": "yarn run build:main && yarn run build:preload && yarn run build:renderer",
+    "build:main": "vite build --config packages/main/vite.config.js",
+    "build:preload": "vite build --config packages/preload/vite.config.js",
+    "build:renderer": "vite build --config packages/renderer/vite.config.js",
+    "compile": "cross-env MODE=production yarn run build && electron-builder build --config .electron-builder.config.js",
+    "test": "yarn run test:main && yarn run test:preload && yarn run test:renderer && yarn run test:e2e",
+    "test:e2e": "yarn run build && vitest run",
+    "test:main": "vitest run -r packages/main --passWithNoTests",
+    "test:preload": "vitest run -r packages/preload --passWithNoTests",
+    "test:renderer": "vitest run -r packages/renderer --passWithNoTests",
+    "watch": "node scripts/watch.mjs",
+    "postinstall": "cross-env ELECTRON_RUN_AS_NODE=1 electron scripts/update-electron-vendors.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.6",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "5.38.0",
+    "@typescript-eslint/parser": "^5.40.0",
+    "cross-env": "7.0.3",
+    "electron": "^31.1.0",
+    "electron-builder": "^24.13.3",
+    "electron-builder-squirrel-windows": "24.13.3",
+    "eslint": "8.24.0",
+    "eslint-plugin-vue": "9.5.1",
+    "typescript": "^4.8.4",
+    "vite": "^5.3.1",
+    "vitest": "0.23.4"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "electron-updater": "5.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
